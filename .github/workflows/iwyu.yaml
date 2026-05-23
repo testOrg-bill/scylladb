@@ -1,10 +1,8 @@
 name: iwyu
 
 on:
-  pull_request:
-    branches:
-      - master
-
+  workflow_dispatch:
+  
 env:
   BUILD_TYPE: RelWithDebInfo
   BUILD_DIR: build
@@ -30,7 +28,18 @@ jobs:
     name: "Analyze #includes in source files"
     needs:
       - read-toolchain
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: github
+            runs-on: ubuntu-latest
+
+          - runner: monkci
+            runs-on: [self-hosted, monkci]
+
+    runs-on: ${{ matrix.runs-on }}
+
     container: ${{ needs.read-toolchain.outputs.image }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
