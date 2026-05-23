@@ -28,17 +28,7 @@ jobs:
     name: "Analyze #includes in source files"
     needs:
       - read-toolchain
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - runner: github
-            runs-on: ubuntu-latest
-
-          - runner: monkci
-            runs-on: [self-hosted, monkci]
-
-    runs-on: ${{ matrix.runs-on }}
+    runs-on: monkci-ubuntu-24.04-2
 
     container: ${{ needs.read-toolchain.outputs.image }}
     steps:
