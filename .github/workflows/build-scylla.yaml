@@ -22,7 +22,7 @@ jobs:
     if: github.repository == 'scylladb/scylladb'
     needs:
       - read-toolchain
-    runs-on: ubuntu-latest
+    runs-on: monkci-ubuntu-24.04-2
     container: ${{ needs.read-toolchain.outputs.image }}
     outputs:
       md5sum: ${{ steps.checksum.outputs.md5sum }}

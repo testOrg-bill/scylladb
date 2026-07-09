@@ -9,7 +9,7 @@ env:
 
 jobs:
   reminder:
-    runs-on: ubuntu-latest
+    runs-on: monkci-ubuntu-24.04-2
 
     steps:
     - name: Send reminders
